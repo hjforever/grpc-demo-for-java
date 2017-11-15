@@ -24,5 +24,5 @@
 
 - [x] grpc demo
     - [x] grpc java demo
-    - [ ] grpc spring boot demo
+    - [x] grpc spring boot demo
 
