@@ -22,7 +22,7 @@
 
 ## 计划列表 持续更新中
 
-- [ X ] grpc demo
-    - [ x ] grpc java demo
-    - [   ] grpc spring boot demo
+- [x] grpc demo
+    - [x] grpc java demo
+    - [ ] grpc spring boot demo
 
