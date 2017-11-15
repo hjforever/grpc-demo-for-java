@@ -5,9 +5,9 @@
 
 ## 项目结构
 
-. local-grpc-server 服务端
-. local-grpc-client 客户端
-. local-grpc-proto  公共的pb文件及生成的java类
+* local-grpc-server 服务端
+* local-grpc-client 客户端
+* local-grpc-proto  公共的pb文件及生成的java类
 
 ## Build
 
