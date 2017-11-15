@@ -10,9 +10,7 @@ import io.grpc.ClientInterceptor;
 import io.grpc.MethodDescriptor;
 
 /**
- * User: Michael
- * Email: yidongnan@gmail.com
- * Date: 2016/12/8
+ * @author hjforever
  */
 public class LogGrpcInterceptor implements ClientInterceptor {
 

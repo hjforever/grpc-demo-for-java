@@ -9,9 +9,7 @@ import io.grpc.ServerCallHandler;
 import io.grpc.ServerInterceptor;
 
 /**
- * User: Michael
- * Email: yidongnan@gmail.com
- * Date: 2016/12/6
+ * @author hjforever
  */
 public class LogGrpcInterceptor implements ServerInterceptor {
 

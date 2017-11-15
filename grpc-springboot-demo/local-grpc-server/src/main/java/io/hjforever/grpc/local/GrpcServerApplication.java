@@ -4,9 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * User: Michael
- * Email: yidongnan@gmail.com
- * Date: 2016/11/8
+ * @author hjforever
  */
 @SpringBootApplication
 public class GrpcServerApplication {
