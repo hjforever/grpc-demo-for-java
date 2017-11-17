@@ -1,30 +1,35 @@
 package io.hjfoerver.grpc.local;
 
 import io.grpc.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * 自定义请求头拦截器
+ * 自定义客户端请求头拦截器
+ * <p>
+ * 功能和 MetadataUtils 中  newAttachHeadersInterceptor 功能类似
  *
  * @author hjforever
  */
 public class ClientHeaderGrpcInterceptor implements ClientInterceptor {
 
-    Logger logger = LoggerFactory.getLogger(ClientHeaderGrpcInterceptor.class);
+    private List<Metadata> metadataList = new ArrayList<>();
 
-    private Map<Metadata.Key<String>, String> customHeaders = new HashMap<>();
-
-    public ClientHeaderGrpcInterceptor(Metadata.Key<String> keys, String value) {
+    public ClientHeaderGrpcInterceptor(Metadata metadata) {
         super();
-        this.customHeaders.put(keys, value);
+        this.metadataList.add(metadata);
     }
 
-    public ClientHeaderGrpcInterceptor(Map<Metadata.Key<String>, String> headers) {
+    public ClientHeaderGrpcInterceptor(Metadata... headers) {
         super();
-        this.customHeaders.putAll(headers);
+        this.metadataList.addAll(Arrays.asList(headers));
+    }
+
+    public ClientHeaderGrpcInterceptor(List<Metadata> headers) {
+        super();
+        this.metadataList.addAll(headers);
     }
 
     @Override
@@ -33,23 +38,8 @@ public class ClientHeaderGrpcInterceptor implements ClientInterceptor {
 
             @Override
             public void start(Listener<RespT> responseListener, Metadata headers) {
-                /**
-                 * 设置自定义的 header , 客户端会将 header 带到服务端
-                 */
-                if (!customHeaders.isEmpty()) {
-                    customHeaders.forEach((k, v) -> {
-                        if (k != null && v != null) {
-                            headers.put(k, v);
-                        }
-                    });
-                }
-                super.start(new ForwardingClientCallListener.SimpleForwardingClientCallListener<RespT>(responseListener) {
-                    @Override
-                    public void onHeaders(Metadata headers) {
-                        logger.info("接收服务端请求头为 : {}", headers);
-                        super.onHeaders(headers);
-                    }
-                }, headers);
+                metadataList.forEach(metadata -> headers.merge(metadata));
+                super.start(responseListener, headers);
             }
         };
     }

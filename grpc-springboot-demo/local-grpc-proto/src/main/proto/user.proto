@@ -13,8 +13,9 @@ service User {
     //根据id查询用户
     rpc QueryUserById (UserRequest) returns (UserReply) {};
 
-    //根据名称查询用户
-    rpc QueryUserByName (UserRequest) returns (UserReply) {};
+    //双向流 （流是可以多次）
+    rpc QueryUserByName (stream UserRequest) returns (stream UserReply) {};
+
 }
 
 message UserReply {

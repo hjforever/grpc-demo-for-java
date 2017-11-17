@@ -15,28 +15,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class GrpcClientService {
 
-    static final Metadata.Key<String> USERID_HEADER_KEY =
-            Metadata.Key.of("user_id", Metadata.ASCII_STRING_MARSHALLER);
+    static final Metadata.Key<String> USERID_HEADER_KEY = Metadata.Key.of("user_id", Metadata.ASCII_STRING_MARSHALLER);
 
     @GrpcClient("local-grpc-server")
     private Channel serverChannel;
 
     public String queryUserNameById(Long userId) {
 
-        /**
-         *
-         * 增加自定义拦截器
-         *
-         * 此处主要测试 自定义header 参数, 将 userId 放入 header 头里面
-         */
+        Metadata metadata = new Metadata();
+        metadata.put(USERID_HEADER_KEY, "" + userId);
 
-        //注意 userid 为空的情况
-        ClientHeaderGrpcInterceptor headerGrpcInterceptor = new ClientHeaderGrpcInterceptor(USERID_HEADER_KEY, String.valueOf(userId));
+        serverChannel = ClientInterceptors.intercept(serverChannel, new ClientHeaderGrpcInterceptor(metadata));
 
-        //对channel增加拦截器
-        Channel channel = ClientInterceptors.intercept(serverChannel, headerGrpcInterceptor);
-
-        UserGrpc.UserBlockingStub stub = UserGrpc.newBlockingStub(channel);
+        UserGrpc.UserBlockingStub stub = UserGrpc.newBlockingStub(serverChannel);
 
         UserRequest userRequest = UserRequest.newBuilder().setUserId(userId).build();
 

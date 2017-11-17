@@ -25,7 +25,7 @@ public class GrpcServerService extends UserGrpc.UserImplBase {
 
         Long userId = userRequest.getUserId();
 
-        UserReply userReply = UserReply.newBuilder().setUserId(userId).setName("小明" + userId).setAge(18).build();
+        UserReply userReply = UserReply.newBuilder().setUserId(userId).setName("mike" + userId).setAge(18).build();
 
         responseObserver.onNext(userReply);
 
