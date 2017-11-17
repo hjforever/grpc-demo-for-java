@@ -17,9 +17,7 @@ public class GlobalInterceptorConfiguration {
         return new GlobalServerInterceptorConfigurerAdapter() {
             @Override
             public void addServerInterceptors(GlobalServerInterceptorRegistry registry) {
-                registry.addServerInterceptors(new LogGrpcInterceptor());
-                //增加header拦截器
-                registry.addServerInterceptors(new ServerHeaderGrpcInterceptor());
+                registry.addServerInterceptors(new ServerLogGrpcInterceptor());
             }
         };
     }
