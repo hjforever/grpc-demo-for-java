@@ -20,10 +20,9 @@ public class GlobalClientInterceptorConfiguration {
     @Bean
     public GlobalClientInterceptorConfigurerAdapter globalInterceptorConfigurerAdapter() {
         return new GlobalClientInterceptorConfigurerAdapter() {
-
             @Override
             public void addClientInterceptors(GlobalClientInterceptorRegistry registry) {
-                registry.addClientInterceptors(new LogGrpcInterceptor());
+                registry.addClientInterceptors(new ClientLogGrpcInterceptor());
             }
         };
     }
