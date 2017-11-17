@@ -1,9 +1,10 @@
 package io.hjfoerver.grpc.local;
 
+import io.hjforever.grpc.user.UserReply;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * test controller
@@ -15,7 +16,12 @@ public class GrpcClientController {
     private GrpcClientService grpcClientService;
 
     @RequestMapping("/api/user")
-    public String printMessage(@RequestParam(defaultValue = "1") Long userId) {
+    public String queryUserName(@RequestParam(defaultValue = "1") Long userId) {
         return grpcClientService.queryUserNameById(userId);
+    }
+
+    @RequestMapping("/api/users")
+    public List<User> users(@RequestBody List<Long> userIds){
+        return grpcClientService.queryUserByIds(userIds);
     }
 }

@@ -32,4 +32,34 @@ public class GrpcServerService extends UserGrpc.UserImplBase {
         responseObserver.onCompleted();
 
     }
+
+
+    @Override
+    public StreamObserver<UserRequest> queryUserIds(final StreamObserver<UserReply> streamObserver) {
+
+        return new StreamObserver<UserRequest>() {
+            @Override
+            public void onNext(UserRequest userRequest) {
+                logger.info("user request is : {}", userRequest);
+                /**
+                 * 根据 userRequest 查询对应的 userReply
+                 */
+                UserReply userReply = UserReply.newBuilder()
+                        .setName("mike"+userRequest.getUserId())
+                        .setAge(18)
+                        .setUserId(userRequest.getUserId())
+                        .build();
+                streamObserver.onNext(userReply);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+            }
+
+            @Override
+            public void onCompleted() {
+                streamObserver.onCompleted();
+            }
+        };
+    }
 }
