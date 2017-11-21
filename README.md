@@ -20,7 +20,7 @@
 
 5.[gRPC客户端创建和调用原理解析](http://www.infoq.com/cn/articles/grpc-client-creation-and-invocation-principle-analysis)
 
-6、[gRPC线程模型分析](http://www.infoq.com/cn/articles/grpc-thread-model)
+6.[gRPC线程模型分析](http://www.infoq.com/cn/articles/grpc-thread-model)
 
 ## 计划列表 持续更新中
 
