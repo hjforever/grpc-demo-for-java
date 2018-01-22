@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 自定义客户端请求头拦截器
  * <p>
- * 功能和 MetadataUtils 中  newAttachHeadersInterceptor 功能类似
+ * 功能和 MetadataUtils 中  newAttachHeadersInterceptor 功能类似 , 只是增加,不会覆盖之前的请求头.
  *
  * @author hjforever
  */
@@ -39,6 +39,7 @@ public class ClientHeaderGrpcInterceptor implements ClientInterceptor {
             @Override
             public void start(Listener<RespT> responseListener, Metadata headers) {
                 metadataList.forEach(metadata -> headers.merge(metadata));
+                metadataList.clear();
                 super.start(responseListener, headers);
             }
         };
